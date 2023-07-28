@@ -1,0 +1,85 @@
+State and Props
+
+State and Props are two fundamental concepts in React that allow components to manage and share data. Let's explain each concept with a suitable example:
+
+State:
+
+State is a mechanism in React components that allows them to maintain and manage their own data. It represents the current state of the component and is subject to change over time. When the state changes, React automatically re-renders the component to reflect the updated data on the user interface.
+
+To use state in a component, you need to use the useState hook (for functional components) or extend the React.Component class (for class components). Let's look at an example of a simple counter component using functional components and the useState hook:
+
+import React, { useState } from 'react';
+
+function Counter() {
+  // Declare a state variable named 'count' and initialize it to 0
+  const [count, setCount] = useState(0);
+
+  // Function to increment the count
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  // Function to decrement the count
+  const decrement = () => {
+    setCount(count - 1);
+  };
+
+  return (
+    <div>
+      <h2>Counter: {count}</h2>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
+    </div>
+  );
+}
+In this example, we use useState(0) to initialize the state variable count to 0. The setCount function is used to update the count state. When the "Increment" or "Decrement" button is clicked, the corresponding function is called, updating the state, and causing React to re-render the component with the updated count value.
+
+Props:
+
+Props (short for "properties") are a way to pass data from a parent component to a child component. Props are read-only and cannot be changed by the child component. They provide a mechanism for communication between components and enable the reusability of components across different parts of the application.
+
+Let's extend our counter example by creating a parent component that passes a prop to the Counter component:
+
+import React, { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  const decrement = () => {
+    setCount(count - 1);
+  };
+
+  return (
+    <div>
+      <h2>Counter: {count}</h2>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
+    </div>
+  );
+}
+
+function App() {
+  const initialCount = 5;
+
+  return (
+    <div>
+      <h1>Counter App</h1>
+      <Counter initialCount={initialCount} />
+    </div>
+  );
+}
+In this example, we create a parent component called App, which renders the Counter component as a child component. The initialCount is passed to the Counter component as a prop. We can access this prop inside the Counter component and use it to initialize the state:
+
+function Counter({ initialCount }) {
+  const [count, setCount] = useState(initialCount);
+
+  // ... rest of the code ...
+}
+
+Now, the Counter component will use the initialCount prop to set the initial value of the count state. The value of initialCount is managed in the parent component (App), and any changes to it will not affect the count state in the Counter component. This separation of concerns allows for better organization and reusability of components.
+
+In summary, state allows a component to manage its internal data and update the user interface based on that data, while props facilitate communication between parent and child components, enabling the passage of data from one component to another. Understanding the interplay between state and props is essential for building complex and interactive React applications.
